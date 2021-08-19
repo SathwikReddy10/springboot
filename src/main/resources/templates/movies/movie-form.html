@@ -1,0 +1,60 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Save Movie</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h3>Movie Directory</h3>
+    <hr>
+
+    <p class="h4 mb-4">Save Movie</p>
+
+    <form action="#" th:action="@{/movies/save}"
+          th:object="${movie}" method="POST">
+
+        <input  type="hidden" th:field="*{id}">
+
+        <input type="text" th:field="*{name}"
+               class="form-control mb-4 col-4" required placeholder="Movie name">
+
+        <input type="text" th:field="*{language}"
+               class="form-control mb-4 col-4" required placeholder="Laanguage">
+
+        <input type="text" th:field="*{actor}"
+               class="form-control mb-4 col-4" required placeholder="Actor">
+
+        <input type="text" th:field="*{director}"
+               class="form-control mb-4 col-4" required placeholder="Director">
+
+        <input type="text" th:field="*{genres}"
+               class="form-control mb-4 col-4" required placeholder="Genres">
+
+        <input type="text" th:field="*{rating}"
+               class="form-control mb-4 col-4" required placeholder="Rating">
+        <i style="display:inline;" th:if="${#fields.hasErrors('rating')}" th:errors="*{rating}">Rating error</i>
+
+        <button type="submit" class="btn btn-info col-2">Save</button>
+
+    </form>
+
+    <hr>
+    <a th:href="@{/movies/list}">Back to Movies List</a>
+
+</div>
+
+
+</body>
+
+</html>

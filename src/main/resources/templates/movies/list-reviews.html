@@ -1,0 +1,68 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+
+    <title>Reviews Directory</title>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col col-11">
+            <h3>Review Directory</h3>
+        </div>
+        <div class="column">
+            <button type="button" class="btn btn-outline-primary" sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></button>
+        </div>
+    </div>
+
+    <hr>
+    <h4>Reviews of Movie</h4>
+
+    <hr>
+    <div th:each="tempReview : ${reviews}">
+        <div class="row">
+        <div class="col-10"><p th:text="${tempReview.review}" />
+        </div>
+        <div class="col">
+            <a sec:authorize="hasAnyRole('ROLE_CREW')" th:href="@{/reviews/deletereview(reviewId=${tempReview.id})}"
+               class="btn btn-danger btn-sm"
+               onclick="if(!(confirm('Are you sure you want to delete this Review?'))) return false">
+                Delete
+            </a>
+        </div>
+        </div>
+
+    </div>
+    <br>
+      <div >
+        <form action="#" th:action="@{/movies/addReview}"
+              th:object="${review}" method="POST">
+            <input  type="hidden" th:field="*{id}">
+            <input  type="hidden" th:field="*{movie_id}">
+            <div>
+                <input type="text" th:field="*{review}"
+                       class="form-control mb-4 col-4" required sec:authorize="hasAnyRole('ROLE_CRITIC','ROLE_USER')" placeholder="Add your review">
+            </div>
+            <button  type="submit" sec:authorize="hasAnyRole('ROLE_CRITIC','ROLE_USER')" class="btn btn-info col-2">Add Review</button>
+        </form>
+
+        <br>
+        <a th:href="@{/movies/list}">Back to Movies List</a>
+        <br>
+
+    </div>
+
+</div>
+
+</body>
+</html>
